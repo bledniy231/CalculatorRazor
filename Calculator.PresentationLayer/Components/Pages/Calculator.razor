@@ -1,0 +1,77 @@
+﻿@page "/"
+@using System.Globalization
+@using global::Calculator.ApplicationLayer.Common.Interfaces.ApplicationInterfaces.UseCases
+@rendermode InteractiveServer
+@inject IExpressionsUseCases _expressionsUseCases
+
+<PageTitle>Калькулятор</PageTitle>
+
+<h3 style="text-align: center;">Калькулятор</h3>
+<h5 style="text-align: center; margin-bottom: 40px">Введите значения, используя кнопки ниже, или же используйте клавиатуру</h5>
+
+<div class="calculator-container">
+    <input type="text" @bind="expression" placeholder="Введите выражение" class="input-field">
+    <img src="arrow-left.png" class="arrow-icon" @onclick="RemoveLastCharacter" alt="backspace"/>
+</div>
+
+<div class="calculator-container">
+    <button @onclick="() => AddToExpression(1.ToString())" class="calc-button">1</button>
+    <button @onclick="() => AddToExpression(2.ToString())" class="calc-button">2</button>
+    <button @onclick="() => AddToExpression(3.ToString())" class="calc-button">3</button>
+    <button @onclick='() => AddToExpression("+")' class="calc-button operation-button">+</button>
+</div>
+<div class="calculator-container">
+    <button @onclick="() => AddToExpression(4.ToString())" class="calc-button">4</button>
+    <button @onclick="() => AddToExpression(5.ToString())" class="calc-button">5</button>
+    <button @onclick="() => AddToExpression(6.ToString())" class="calc-button">6</button>
+    <button @onclick='() => AddToExpression("-")' class="calc-button operation-button">-</button>
+</div>
+<div class="calculator-container">
+    <button @onclick="() => AddToExpression(7.ToString())" class="calc-button">7</button>
+    <button @onclick="() => AddToExpression(8.ToString())" class="calc-button">8</button>
+    <button @onclick="() => AddToExpression(9.ToString())" class="calc-button">9</button>
+    <button @onclick='() => AddToExpression("*")' class="calc-button operation-button">*</button>
+</div>
+<div class="calculator-container">
+    <button @onclick="() => AddToExpression(0.ToString())" class="calc-button">0</button>
+    <button @onclick='() => AddToExpression(".")' class="calc-button dot-button">.</button>
+    <button @onclick="() => expression = string.Empty" class="calc-button dot-button">AC</button>
+    <button @onclick='() => AddToExpression("/")' class="calc-button operation-button">/</button>
+</div>
+<div class="calculator-container">
+    <button @onclick='() => AddToExpression("(")' class="calc-button dot-button">(</button>
+    <button @onclick='() => AddToExpression(")")' class="calc-button dot-button">)</button>
+</div>
+
+<div class="calculator-container">
+    <button @onclick="CalculateExpression" class="calc-button calculate-button">Посчитать</button>
+</div>
+
+<div class="calculator-container">
+    <p class="result-text" role="status">Результат: @result</p>
+</div>
+
+@code {
+    private string expression = "";
+    private string result = "";
+
+    private void AddToExpression(string value)
+    {
+        expression += value;
+    }
+
+    private async Task CalculateExpression()
+    {
+        var completedExpression = await _expressionsUseCases.CalculateExpression(expression);
+        result = completedExpression.Result.ToString(CultureInfo.InvariantCulture);
+    }
+
+    private void RemoveLastCharacter()
+    {
+        if (expression.Length > 0)
+        {
+            expression = expression.Remove(expression.Length - 1);
+        }
+    }
+
+}

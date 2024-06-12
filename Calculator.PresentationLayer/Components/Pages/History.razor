@@ -1,0 +1,43 @@
+﻿@page "/history"
+@using global::Calculator.ApplicationLayer.Common.Interfaces.ApplicationInterfaces.UseCases
+@using global::Calculator.DomainLayer.Entities
+@rendermode InteractiveServer
+@inject IExpressionsUseCases _expressionsUseCases
+
+<PageTitle>История операций</PageTitle>
+
+@if (_completedExpressions == null)
+{
+    <p><em>Загрузка...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Математическое выражение</th>
+            <th>Результат операции</th>
+            <th>Временной штамп</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var expression in _completedExpressions)
+        {
+            <tr>
+                <td>@expression.OriginalExpression</td>
+                <td>@expression.Result</td>
+                <td>@expression.DateTime</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}
+
+@code {
+    private IEnumerable<CompletedExpression>? _completedExpressions;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _completedExpressions = await _expressionsUseCases.GetCompletedExpressions();
+    }
+}
