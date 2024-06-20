@@ -11,7 +11,7 @@ public class Program
         var builder = WebApplication.CreateBuilder(args);
 
         builder.Services.AddRazorComponents().AddInteractiveServerComponents();
-        builder.Services.AddApplicationServices();
+        builder.Services.ConfigureApplicationServices(builder.Configuration);
         builder.Services.AddInfrastructureServices();
         
         builder.Services.AddLogging(cfg => cfg.AddConsole());

@@ -22,7 +22,7 @@ public class ExpressionsUseCases(
         try
         {
             var parsedModel = parser.ParseExpression(expression);
-            var result = calculator.Calculate(parsedModel.PostfixExpression);
+            var result = calculator.Calculate(parsedModel.ConvertedExpression);
             completedExpression.Result = result.ToString(CultureInfo.InvariantCulture);
         }
         catch (Exception e)

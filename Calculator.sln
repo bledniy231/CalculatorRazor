@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calculator.Tests", "Calculator.Tests\Calculator.Tests.csproj", "{76063EF4-5F17-4161-949F-ED579DBB7CE7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calculator.DevTests", "Calculator.DevTests\Calculator.DevTests.csproj", "{76063EF4-5F17-4161-949F-ED579DBB7CE7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calculator.ApplicationLayer", "Calculator.ApplicationLayer\Calculator.ApplicationLayer.csproj", "{562E6D1D-4133-485C-B575-51FEAFEF5D2E}"
 EndProject

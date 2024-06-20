@@ -4,7 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Calculator.InfrastructureLayer;
 
-public static class HostExtensions
+public static class ServiceCollectionExtensionsInfrLayer
 {
     public static IServiceCollection AddInfrastructureServices(this IServiceCollection services)
     {
